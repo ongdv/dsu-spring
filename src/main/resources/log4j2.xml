@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration>
+    <properties>
+                <property name="name">study</property>
+                <property name="pattern">[%5p] [%d{YYYY-MM-DD HH:mm:ss}] (%F:%L) -> %m%n</property>
+    </properties>
+    <appenders>
+                <Console name="console" target="SYSTEM_OUT">
+                        <PatternLayout pattern="${pattern}"/>
+                </Console>
+                <RollingFile name="file" fileName="../logs/studyProject/${name}.log"
+                                 filePattern="../logs/$${date:yyyy}$${date:MM}$${date:dd}/${name}_%d{yyyyMMdd}.log">
+                        <PatternLayout>
+                                <pattern>${pattern}</pattern>
+                        </PatternLayout>
+                        <Policies>
+                                <TimeBasedTriggeringPolicy /><!-- Rotated everyday -->
+                        </Policies>
+                </RollingFile>
+    </appenders>
+    
+    <Loggers>
+    	<Logger name="com.project.dsu" level="INFO" additivity="false">
+    		<AppenderRef ref="console" />
+    		<AppenderRef ref="file" />
+    	</Logger>
+    	<Logger name="org.apache.http" level="INFO" additivity="false">
+    		<AppenderRef ref="console" />
+    		<AppenderRef ref="file" />
+    	</Logger>
+    	<Logger name="org.elasticsearch.plugins" level="INFO" additivity="false">
+    		<AppenderRef ref="console" />
+    		<AppenderRef ref="file" />
+    	</Logger>
+        <Logger name="java.sql" level="INFO" additivity="false">
+            <AppenderRef ref="console" />
+            <AppenderRef ref="file" />
+        </Logger>
+          <!-- log SQL with timing information, post execution -->
+        <Logger name="jdbc.sqltiming" level="INFO" additivity="false">
+            <AppenderRef ref="console" />
+            <AppenderRef ref="file" />
+        </Logger>
+        <Logger name="org.springframework" level="INFO" additivity="false">
+            <AppenderRef ref="console" />
+            <AppenderRef ref="file" />
+        </Logger>
+        <Root level="INFO">
+            <AppenderRef ref="console" />
+            <AppenderRef ref="file" />
+        </Root>
+    </Loggers>
+</Configuration>
